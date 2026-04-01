@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Carledge - Mobile First UI</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #F5F5F5; font-family: 'Zen Kaku Gothic New', sans-serif; }
+    .slide-container { position: relative; width: 1280px; height: 720px; overflow: hidden; background-color: #F5F5F5; }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header Bar -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 0; top: 0; width: 1280px; height: 77px; background-color: #2E3A87; z-index: 1;"></div>
+<!-- Header Logo Text -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 40px; top: 20px; width: 300px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 24px; font-weight: 700; color: #FFFFFF;">Carledge</p>
+</div>
+<!-- Slide Title -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 60px; top: 108px; width: 1160px; height: 70px; z-index: 10;">
+<h2 style="margin: 0; font-size: 42px; font-weight: 700; color: #2E3A87; border-left: 10px solid #FFA726; padding-left: 20px; line-height: 1.2;">スマートフォンファーストのUI設計</h2>
+</div>
+<!-- Left Card: UI Philosophy & Tabs -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 60px; top: 200px; width: 440px; height: 460px; background-color: #FFFFFF; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 230px; width: 380px; height: 50px; z-index: 10;">
+<p style="margin: 0; font-size: 24px; font-weight: 700; color: #2E3A87;">直感的な5つのメインタブ</p>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 90px; top: 280px; width: 380px; height: 350px; z-index: 10;">
+<div style="display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; align-items: center; gap: 15px;">
+<div style="width: 50px; height: 50px; background-color: #E8EAF6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2E3A87; font-size: 24px;"><i class="fa-solid fa-house"></i></div>
+<div>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #333333;">ダッシュボード</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">実績サマリー・直近案件</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 15px;">
+<div style="width: 50px; height: 50px; background-color: #E8EAF6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2E3A87; font-size: 24px;"><i class="fa-solid fa-clipboard-list"></i></div>
+<div>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #333333;">案件一覧</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">カード型表示・ステータス管理</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 15px;">
+<div style="width: 50px; height: 50px; background-color: #E8EAF6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2E3A87; font-size: 24px;"><i class="fa-solid fa-clock"></i></div>
+<div>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #333333;">打刻</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">ワンタップ入力・GPS連携</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 15px;">
+<div style="width: 50px; height: 50px; background-color: #E8EAF6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2E3A87; font-size: 24px;"><i class="fa-solid fa-chart-column"></i></div>
+<div>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #333333;">集計</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">レポート・期間指定分析</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 15px;">
+<div style="width: 50px; height: 50px; background-color: #E8EAF6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2E3A87; font-size: 24px;"><i class="fa-solid fa-gear"></i></div>
+<div>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #333333;">設定</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">スタッフ・カテゴリ管理</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Top Card: Key Screens -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 530px; top: 200px; width: 690px; height: 260px; background-color: #FFFFFF; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 560px; top: 230px; width: 630px; height: 50px; z-index: 10;">
+<p style="margin: 0; font-size: 24px; font-weight: 700; color: #2E3A87;">主な画面イメージ</p>
+</div>
+<!-- Screen 1 Icon Box -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 560px; top: 290px; width: 200px; height: 140px; background-color: #F5F5F5; border-radius: 8px; border: 1px solid #EEEEEE; z-index: 3;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 635px; top: 310px; width: 50px; height: 50px; z-index: 10; text-align: center; color: #2E3A87;">
+<i class="fa-solid fa-mobile-screen-button" style="font-size: 40px;"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 570px; top: 370px; width: 180px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #333333;">案件一覧</p>
+<p style="margin: 0; font-size: 12px; color: #666666;">カード型レイアウト</p>
+</div>
+<!-- Screen 2 Icon Box -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 775px; top: 290px; width: 200px; height: 140px; background-color: #F5F5F5; border-radius: 8px; border: 1px solid #EEEEEE; z-index: 3;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 850px; top: 310px; width: 50px; height: 50px; z-index: 10; text-align: center; color: #FFA726;">
+<i class="fa-solid fa-file-invoice-dollar" style="font-size: 40px;"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 785px; top: 370px; width: 180px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #333333;">案件詳細</p>
+<p style="margin: 0; font-size: 12px; color: #666666;">費用サマリー付き</p>
+</div>
+<!-- Screen 3 Icon Box -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 990px; top: 290px; width: 200px; height: 140px; background-color: #F5F5F5; border-radius: 8px; border: 1px solid #EEEEEE; z-index: 3;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 1065px; top: 310px; width: 50px; height: 50px; z-index: 10; text-align: center; color: #4CAF50;">
+<i class="fa-solid fa-hand-pointer" style="font-size: 40px;"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1000px; top: 370px; width: 180px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #333333;">打刻画面</p>
+<p style="margin: 0; font-size: 12px; color: #666666;">ワンタップ入力</p>
+</div>
+<!-- Right Bottom Card 1: Multi-Device -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 530px; top: 480px; width: 335px; height: 180px; background-color: #FFF3E0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 560px; top: 510px; width: 280px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 20px; font-weight: 700; color: #E65100;">マルチデバイス対応</p>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 560px; top: 550px; width: 280px; height: 100px; z-index: 10;">
+<div style="display: flex; gap: 20px; margin-top: 15px;">
+<div style="text-align: center;">
+<i class="fa-solid fa-mobile-screen" style="font-size: 32px; color: #FFA726;"></i>
+<p style="margin: 5px 0 0 0; font-size: 12px; color: #666666;">スマホ</p>
+</div>
+<div style="text-align: center;">
+<i class="fa-solid fa-tablet-screen-button" style="font-size: 32px; color: #FFA726;"></i>
+<p style="margin: 5px 0 0 0; font-size: 12px; color: #666666;">タブレット</p>
+</div>
+<div style="text-align: center;">
+<i class="fa-solid fa-desktop" style="font-size: 32px; color: #FFA726;"></i>
+<p style="margin: 5px 0 0 0; font-size: 12px; color: #666666;">PC</p>
+</div>
+</div>
+</div>
+<!-- Right Bottom Card 2: PWA -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 885px; top: 480px; width: 335px; height: 180px; background-color: #E8F5E9; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 915px; top: 510px; width: 280px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 20px; font-weight: 700; color: #2E7D32;">PWA対応</p>
+</div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 915px; top: 560px; width: 50px; height: 50px; z-index: 10; text-align: center; color: #4CAF50;">
+<i class="fa-solid fa-download" style="font-size: 40px;"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 980px; top: 560px; width: 220px; height: 80px; z-index: 10;">
+<p style="margin: 0; font-size: 16px; color: #388E3C; line-height: 1.5;">ホーム画面に追加可能。<br/>アプリのような操作感を提供。</p>
+</div>
+<!-- Page Number -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1200px; top: 680px; width: 50px; height: 30px; z-index: 10; text-align: right;">
+<p style="margin: 0; font-size: 16px; color: #999999;">6</p>
+</div>
+</div>
+</body>
+</html>

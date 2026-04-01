@@ -1,0 +1,12 @@
+{
+  "name": "pptx",
+  "version": "1.0.0",
+  "description": "PPTX",
+  "scripts": {
+    "build-slides": "node scripts/generate-slides.js",
+    "start": "python3 -m http.server 3000"
+  },
+  "devDependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}
