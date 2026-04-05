@@ -31,6 +31,10 @@
         grid-template-rows: auto 1fr;
       }
 
+      .app[hidden] {
+        display: none;
+      }
+
       .toolbar {
         display: flex;
         gap: 12px;
@@ -62,6 +66,10 @@
       button:disabled {
         opacity: 0.45;
         cursor: not-allowed;
+      }
+
+      .ghost-button {
+        margin-left: auto;
       }
 
       .status {
@@ -133,28 +141,118 @@
         padding: 2px 6px;
         font-size: 12px;
       }
+
+      .auth-screen {
+        min-height: 100vh;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at top, rgba(96, 165, 250, 0.22), transparent 35%),
+          var(--bg);
+      }
+
+      .auth-card {
+        width: min(100%, 420px);
+        background: rgba(17, 24, 39, 0.92);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+      }
+
+      .auth-card h1 {
+        margin: 0 0 10px;
+        font-size: 28px;
+      }
+
+      .auth-card p {
+        margin: 0 0 18px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .auth-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .auth-form label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .auth-form input {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        padding: 12px 14px;
+        font-size: 16px;
+      }
+
+      .auth-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .auth-submit {
+        min-width: 120px;
+      }
+
+      .auth-error {
+        min-height: 20px;
+        color: #fca5a5;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
-    <div class="app">
+    <section class="auth-screen" id="authScreen">
+      <div class="auth-card">
+        <h1>Protected Slides</h1>
+        <p>閲覧前にパスワードを入力してください。</p>
+        <form class="auth-form" id="authForm">
+          <label for="passwordInput">Password</label>
+          <input id="passwordInput" type="password" name="password" autocomplete="current-password" required />
+          <div class="auth-actions">
+            <button class="auth-submit" id="loginButton" type="submit">Unlock</button>
+          </div>
+          <div class="auth-error" id="authError"></div>
+        </form>
+      </div>
+    </section>
+
+    <div class="app" id="app" hidden>
       <header class="toolbar">
         <div class="controls">
           <button id="prev">Prev</button>
           <button id="next">Next</button>
         </div>
         <div class="status">
-          <strong id="title">読み込み中...</strong>
+          <strong id="title">Slides</strong>
           <span id="meta">← → キーでも移動できます</span>
         </div>
+        <button class="ghost-button" id="logoutButton" type="button">Lock</button>
       </header>
       <main class="frame-wrap" id="frameWrap"></main>
     </div>
 
     <script src="./slides.js"></script>
     <script>
+      const AUTH_API_URL = "http://localhost:3010/auth/presentation";
+      const AUTH_STORAGE_KEY = "pptx-slide-auth-token";
       const BASE_WIDTH = 1280;
       const BASE_HEIGHT = 720;
       const state = { slides: [], index: 0 };
+      const app = document.getElementById("app");
+      const authScreen = document.getElementById("authScreen");
+      const authForm = document.getElementById("authForm");
+      const passwordInput = document.getElementById("passwordInput");
+      const authError = document.getElementById("authError");
+      const loginButton = document.getElementById("loginButton");
+      const logoutButton = document.getElementById("logoutButton");
       const prevButton = document.getElementById("prev");
       const nextButton = document.getElementById("next");
       const title = document.getElementById("title");
@@ -175,6 +273,38 @@
         const offsetY = Math.max((height - scaledHeight) / 2, 0);
 
         stage.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+      }
+
+      function showAuth() {
+        app.hidden = true;
+        authScreen.hidden = false;
+      }
+
+      function showSlides() {
+        authScreen.hidden = true;
+        app.hidden = false;
+        renderSlide();
+        layoutStage();
+      }
+
+      function setAuthError(message) {
+        authError.textContent = message;
+      }
+
+      function storeAuthToken(token) {
+        if (token) {
+          sessionStorage.setItem(AUTH_STORAGE_KEY, token);
+        } else {
+          sessionStorage.setItem(AUTH_STORAGE_KEY, "ok");
+        }
+      }
+
+      function clearAuthToken() {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      }
+
+      function hasStoredAuth() {
+        return Boolean(sessionStorage.getItem(AUTH_STORAGE_KEY));
       }
 
       function updateButtons() {
@@ -233,13 +363,61 @@
 
       prevButton.addEventListener("click", () => move(-1));
       nextButton.addEventListener("click", () => move(1));
+      logoutButton.addEventListener("click", () => {
+        clearAuthToken();
+        frameWrap.innerHTML = "";
+        stage = null;
+        passwordInput.value = "";
+        setAuthError("");
+        showAuth();
+      });
 
       document.addEventListener("keydown", (event) => {
+        if (app.hidden) {
+          return;
+        }
         if (event.key === "ArrowLeft") move(-1);
         if (event.key === "ArrowRight") move(1);
       });
 
       window.addEventListener("resize", layoutStage);
+
+      authForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setAuthError("");
+        loginButton.disabled = true;
+
+        try {
+          const response = await fetch(AUTH_API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              password: passwordInput.value,
+            }),
+          });
+
+          let payload = {};
+          try {
+            payload = await response.json();
+          } catch {
+            payload = {};
+          }
+
+          const authenticated = response.ok;
+          if (!authenticated) {
+            throw new Error(payload.message || "パスワードが違うか、認証APIに接続できませんでした。");
+          }
+
+          storeAuthToken('ok');
+          showSlides();
+        } catch (error) {
+          setAuthError(error.message);
+        } finally {
+          loginButton.disabled = false;
+        }
+      });
 
       state.slides = Array.isArray(window.__SLIDES__) ? window.__SLIDES__ : [];
 
@@ -248,8 +426,10 @@
           "<code>slides.js</code> の読み込みに失敗しました。",
           "ホスティング前に <code>npm run build-slides</code> を実行してください。"
         );
+      } else if (hasStoredAuth()) {
+        showSlides();
       } else {
-        renderSlide();
+        showAuth();
       }
     </script>
   </body>
