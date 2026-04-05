@@ -28,10 +28,6 @@ window.__SLIDES__ = [
     "path": "./page/7.html"
   },
   {
-    "name": "8.html",
-    "path": "./page/8.html"
-  },
-  {
     "name": "9.html",
     "path": "./page/9.html"
   },
